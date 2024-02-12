@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Commit Activity</title>
+    <title>Commit Activity Chart</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  </head>
-  <body style="background-color: #DFF2FF; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
-    <div id="chart_div" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  width: 80vw; height: 65vh;"></div>
-
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
@@ -24,8 +20,10 @@
             hAxis: {title: 'DateTime', slantedText: true, slantedTextAngle: 45},
             vAxis: {
               title: 'Commits',
-              minValue: 0,
-              viewWindow: {min: 0}
+              minValue: 0, // Ensure the minimum value of y-axis is set to 0
+              viewWindow: {
+                min: 0 // Explicitly sets the minimum value of the vertical axis to 0
+              }
             },
             legend: 'none'
           };
@@ -43,7 +41,9 @@
         // Process commits to count per day and hour
         commits.forEach(commit => {
           const date = new Date(commit.commit.author.date);
-          const dateTimeStr = date.toISOString().substring(0, 16); // Format YYYY-MM-DDTHH:MM
+          const day = date.toISOString().split('T')[0]; // YYYY-MM-DD
+          const time = date.toISOString().split('T')[1].substring(0, 5); // HH:MM
+          const dateTimeStr = `${day} ${time}`;
 
           if (commitCountPerDateTime[dateTimeStr]) {
             commitCountPerDateTime[dateTimeStr] += 1;
@@ -56,5 +56,8 @@
         return Object.keys(commitCountPerDateTime).map(dateTime => [dateTime, commitCountPerDateTime[dateTime]]);
       }
     </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>
   </body>
 </html>
