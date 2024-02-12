@@ -32,7 +32,7 @@ def monnvgraphique():
     return render_template("nvgraphique.html")
 
 
-@app.route("/commit/")
+@app.route("/commits/")
 def graphiquecomm():
     return render_template("qtecommits.html")
 
