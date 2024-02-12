@@ -30,6 +30,13 @@ def mongraphique():
 @app.route("/histogramme/")
 def monnvgraphique():
     return render_template("nvgraphique.html")
+
+
+@app.route("/commit/")
+def graphiquecomm():
+    return render_template("qtecommits.html")
+
+
                                                                                                                                        
 @app.route('/')
 def hello_world():
