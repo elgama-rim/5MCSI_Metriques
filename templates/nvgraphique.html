@@ -1,9 +1,40 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Graphique</title>
- </head>  
-<body>
-    <h2> Voici Mon Graphique</h2>
-</body>
+    <title>Metrique</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body>
+    <div id="chart_div"></div>
+    <script>
+      google.charts.load('current', { packages: ['corechart'] });
+      google.charts.setOnLoadCallback(drawHistogram);
+
+      function drawHistogram() {
+        function drawChart(data) {
+          var dataTable = new google.visualization.DataTable();
+          dataTable.addColumn('number', 'Température');
+          dataTable.addRows(data.results.map(entry => [entry.temp]));
+
+          var options = {
+            title: 'Histogramme des températures de Paris pour les 16 prochains jours',
+            legend: { position: 'none' },
+            hAxis: { title: 'Température' },
+            vAxis: { title: 'Fréquence' },
+            backgroundColor: '#f1f8e9'
+          };
+
+          var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+          chart.draw(dataTable, options);
+        }
+
+        // Récupération de données depuis notre API /paris/
+        fetch('/histogramme/')
+          .then(response => response.json())
+          .then(data => {
+            drawChart(data);
+          });
+      }
+    </script>
+  </body>
 </html>
