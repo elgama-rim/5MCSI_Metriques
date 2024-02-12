@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
+            background-color: #f2f2f2;
             margin: 0;
             display: flex;
             align-items: center;
@@ -17,15 +17,12 @@
         }
 
         .container {
-            width: 400px;
+            width: 300px;
             margin: 20px;
-        }
-
-        .contact-form {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
@@ -57,6 +54,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            width: 100%;
         }
 
         button:hover {
@@ -67,14 +65,11 @@
 <body>
 
     <div class="container">
-        <form action="/submit-contact" method="post" class="contact-form">
+        <form action="/submit-contact" method="post">
             <h2>Contactez-nous</h2>
 
-            <label for="firstName">Prénom:</label>
-            <input type="text" id="firstName" name="firstName" required>
-
-            <label for="lastName">Nom:</label>
-            <input type="text" id="lastName" name="lastName" required>
+            <label for="name">Nom:</label>
+            <input type="text" id="name" name="name" required>
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
