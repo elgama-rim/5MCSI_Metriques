@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <title>Metrique</title>
@@ -7,7 +8,7 @@
   <body>
     <div id="chart_div"></div>
     <script>
-      google.charts.load('current', { packages: ['corechart'] });
+      google.charts.load('current', { packages: ['column'] });
       google.charts.setOnLoadCallback(drawHistogram);
 
       function drawHistogram() {
@@ -15,7 +16,7 @@
           // Convertir les données récupérées en un tableau utilisable par Google Charts
           var dataTable = new google.visualization.DataTable();
           dataTable.addColumn('string', 'Date');
-          dataTable.addColumn('number', 'Valeur');
+          dataTable.addColumn('number', 'Température');
           data.results.forEach(entry => {
             var date = new Date(entry.Jour * 1000);
             dataTable.addRow([date.toLocaleDateString(), entry.temp]);
@@ -34,12 +35,12 @@
           chart.draw(dataTable, options);
         }
 
-        // Récupération de données depuis notre API /paris/
-        fetch('https://http://elgamarim.alwaysdata.net/histogramme/') // Mettez à jour l'URL correcte
-          .then(response => response.json())
-          .then(data => {
-            drawChart(data);
-          });
+        // Récupération de données depuis votre API /paris/ ou tout autre endpoint
+        fetch('/histogramme/')
+    .then(response => response.json())
+    .then(data => {
+      drawChart(data);
+    })
       }
     </script>
   </body>
